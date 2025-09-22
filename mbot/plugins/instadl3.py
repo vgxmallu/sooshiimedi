@@ -12,7 +12,6 @@ from dotenv import load_dotenv
 import httpx
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from wallbot import wbot as app
 load_dotenv()
 from mbot import Mbot as app
 from config import LOG_CHANNEL
