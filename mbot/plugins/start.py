@@ -48,7 +48,7 @@ SRT_BTN = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton('📣 My Channel', url='https://t.me/XBots_X'),
-                InlineKeyboardButton('🎶 My Music group', url='https://t.me/songdownload_group')
+                InlineKeyboardButton('🎶 My Music group', url='https://t.me/music_X_galaxy')
             ],[
                 InlineKeyboardButton("📚 Help", callback_data="hlp"),
                 InlineKeyboardButton("👾 About", callback_data="ab"),
