@@ -15,13 +15,23 @@ from pyrogram.types import Message
 from wallbot import wbot as app
 load_dotenv()
 from mbot import Mbot as app
-
+from config import LOG_CHANNEL
 API_URL = "https://vkrdownloader.xyz/server/"
 API_KEY = "vkrdownloader"
 
 DB_FILE = "users.db"
 
-
+IG = """
+📤📱 **LOG ALERT** 💻📱
+➖➖➖➖➖➖➖➖➖➖➖
+👤**Name** : {}
+👾**Username** : @{}
+💾**DC** : {}
+♐**ID** : `{}`
+🤖**BOT** : @SocialMediaX_dlbot
+➖➖➖➖➖➖➖➖➖➖
+#ig #instagram
+"""
 
 # ---------- External API ----------
 async def fetch_insta_media(link: str) -> Optional[dict]:
@@ -89,6 +99,8 @@ async def download_insta(client: Client, message: Message):
         return
     link = message.text.strip().split()[0]  # take first token as link (similar to original)
     wait = await message.reply_text("Fetching media…")
+    await client.send_message(LOG_CHANNEL, IG.format(message.from_user.mention, message.from_user.username, message.from_user.dc_id, message.from_user.id))
+   
     data = await fetch_insta_media(link)
     if not data:
         return await wait.edit_text("❌ Could not retrieve media.")
