@@ -1,138 +1,139 @@
+
+from mbot import Mbot as app
+from config import LOG_CHANNEL
+
+
 #!/usr/bin/env python3
-# instabot_pyrogram.py
-import os
 import io
 import time
-import sqlite3
 import asyncio
-from contextlib import closing
-from typing import List, Optional
-from dotenv import load_dotenv
+from typing import List
 
 import httpx
 from pyrogram import Client, filters
-from pyrogram.types import Message
-load_dotenv()
-from mbot import Mbot as app
-from config import LOG_CHANNEL
-API_URL = "https://vkrdownloader.xyz/server/"
-API_KEY = "vkrdownloader"
+from pyrogram.types import Message, InputMediaPhoto, InputMediaVideo
 
-DB_FILE = "users.db"
 
-IG = """
-📤📱 **LOG ALERT** 💻📱
-➖➖➖➖➖➖➖➖➖➖➖
-👤**Name** : {}
-👾**Username** : @{}
-💾**DC** : {}
-♐**ID** : `{}`
-🤖**BOT** : @SocialMediaX_dlbot
-➖➖➖➖➖➖➖➖➖➖
-#ig #instagram
-"""
 
-# ---------- External API ----------
-async def fetch_insta_media(link: str) -> Optional[dict]:
-    params = {"api_key": API_KEY, "vkr": link}
+IG_API = "https://vkrdownloader.xyz/server/"
+IG_API_KEY = "vkrdownloader"
+
+http = httpx.AsyncClient(timeout=120)
+
+# ───────────── RATE LIMIT ─────────────
+
+USER_LIMIT = {}
+LIMIT_TIME = 7
+
+def rate_limited(user_id: int) -> bool:
+    now = time.time()
+    if now - USER_LIMIT.get(user_id, 0) < LIMIT_TIME:
+        return True
+    USER_LIMIT[user_id] = now
+    return False
+
+# ───────────── INSTAGRAM API ─────────────
+
+async def fetch_instagram(url: str) -> dict | None:
     try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            resp = await client.get(API_URL, params=params)
-            if resp.status_code != 200:
-                return None
-            data = resp.json()
-            if not data.get("data") or not data["data"].get("downloads"):
-                return None
-            return data
-    except Exception:
+        r = await http.get(
+            IG_API,
+            params={"api_key": IG_API_KEY, "vkr": url},
+        )
+        if r.status_code != 200:
+            return None
+        return r.json()
+    except:
         return None
 
-# ---------- Download with progress ----------
-async def download_with_progress(url: str, msg: Message, label: str) -> Optional[bytes]:
-    """
-    Downloads the given URL and edits `msg` every ~2s with progress.
-    Returns bytes on success or None on failure.
-    """
-    try:
-        async with httpx.AsyncClient(timeout=120.0) as client:
-            async with client.stream("GET", url) as resp:
-                if resp.status_code != 200:
-                    return None
-                total = int(resp.headers.get("content-length", 0) or 0)
-                # If content-length missing, we fallback to a simpler download
-                if total == 0:
-                    # fallback: read all bytes without progress
-                    content = await resp.aread()
-                    return content
+# ───────────── DOWNLOAD ─────────────
 
-                chunks = bytearray()
-                start = time.time()
-                last_update = 0.0
-                downloaded = 0
-                async for chunk in resp.aiter_bytes(1024 * 64):
-                    if not chunk:
-                        continue
-                    chunks.extend(chunk)
-                    downloaded += len(chunk)
-                    now = time.time()
-                    if now - last_update >= 2.0:
-                        last_update = now
-                        pct = int(downloaded * 100 / total) if total else 0
-                        elapsed = now - start
-                        eta = (total - downloaded) * elapsed / downloaded if downloaded else 0
-                        eta_str = f"{int(eta)}s" if eta < 3600 else f"{int(eta//60)}m"
-                        try:
-                            await msg.edit_text(f"{label} {pct}%  ETA: {eta_str}")
-                        except Exception:
-                            # ignore edit errors (message may be deleted)
-                            pass
-                return bytes(chunks)
-    except Exception:
+async def download_file(url: str) -> bytes | None:
+    try:
+        async with http.stream("GET", url) as r:
+            if r.status_code != 200:
+                return None
+            return await r.aread()
+    except:
         return None
 
+# ───────────── LINK EXTRACTOR ─────────────
 
-# Instagram link handler (anywhere in text)
-@app.on_message(filters.regex(r"(?i)instagram\.com"))
-async def download_insta(client: Client, message: Message):
-    if not message.text:
+def extract_link(text: str) -> str | None:
+    for word in text.split():
+        if "instagram.com" in word:
+            return word
+    return None
+
+# ───────────── HANDLER ─────────────
+
+@app.on_message(filters.regex(r"instagram\.com"))
+async def instagram_handler(_, message: Message):
+    if not message.from_user or not message.text:
         return
-    link = message.text.strip().split()[0]  # take first token as link (similar to original)
-    wait = await message.reply_text("Fetching media…")
-    await client.send_message(LOG_CHANNEL, IG.format(message.from_user.mention, message.from_user.username, message.from_user.dc_id, message.from_user.id))
-   
-    data = await fetch_insta_media(link)
-    if not data:
-        return await wait.edit_text("❌ Could not retrieve media.")
+
+    if rate_limited(message.from_user.id):
+        return await message.reply_text("⏳ Please wait before sending another link.")
+
+    link = extract_link(message.text)
+    if not link:
+        return
+
+    status = await message.reply_text("🔍 Fetching Instagram media...")
+
+    data = await fetch_instagram(link)
+    if not data or not data.get("data"):
+        return await status.edit("❌ Failed to fetch media.")
+
     downloads = data["data"].get("downloads", [])
-    best_video = None
-    for item in downloads:
+    if not downloads:
+        return await status.edit("❌ No media found.")
+
+    media_group = []
+
+    await status.edit("📥 Downloading media...")
+
+    for item in downloads[:10]:  # Telegram max album = 10
         url = item.get("url")
-        if not url:
+        ext = item.get("ext", "").lower()
+
+        content = await download_file(url)
+        if not content:
             continue
-        ext = (item.get("ext") or "mp4").lower()
-        if ext in {"mp4", "webm"}:
-            best_video = url
-            break
-    if not best_video:
-        return await wait.edit_text("❌ No video found.")
-    await wait.edit_text("📥 Downloading…")
-    media_bytes = await download_with_progress(best_video, wait, "📥")
-    if not media_bytes:
-        return await wait.edit_text("❌ Download failed.")
-    await wait.edit_text("📤 Uploading…")
-    # prepare BytesIO for Pyrogram
-    filename = f"insta_{message.id}.mp4"
-    bio = io.BytesIO(media_bytes)
-    bio.name = filename
-    bio.seek(0)
+
+        file = io.BytesIO(content)
+        file.name = f"insta.{ext}"
+        file.seek(0)
+
+        if ext in ("jpg", "jpeg", "png", "webp"):
+            media_group.append(InputMediaPhoto(file))
+        elif ext in ("mp4", "webm"):
+            media_group.append(InputMediaVideo(file, supports_streaming=True))
+
+    if not media_group:
+        return await status.edit("❌ Media download failed.")
+
+    await status.edit("📤 Uploading to Telegram...")
+
     try:
-        await message.reply_video(bio)
+        if len(media_group) == 1:
+            m = media_group[0]
+            if isinstance(m, InputMediaPhoto):
+                await message.reply_photo(m.media)
+            else:
+                await message.reply_video(m.media, supports_streaming=True)
+        else:
+            await message.reply_media_group(media_group)
     except Exception as e:
-        # fallback: send as document if video fails
-        try:
-            bio.seek(0)
-            await message.reply_document(bio, file_name=filename)
-        except Exception as e2:
-            await wait.edit_text(f"❌ Upload failed: {e} / {e2}")
-            return
-    await wait.delete()
+        return await status.edit(f"❌ Upload error:\n`{e}`")
+
+    await status.delete()
+
+    # Log
+    try:
+        await app.send_message(
+            LOG_CHANNEL,
+            f"📥 Instagram Download\n👤 {message.from_user.mention}\n🔗 {link}",
+        )
+    except:
+        pass
