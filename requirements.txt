@@ -1,7 +1,7 @@
  #------Maine------#
 ###git+https://github.com/Hydra-sjz/pyrogram.git
 Pyrogram==2.0.106
-telethon~=1.14.0
+#telethon~=1.14.0
 tgcrypto
 python-dateutil
 python-dotenv
