@@ -68,7 +68,7 @@ def extract_link(text: str) -> str | None:
 # ───────────── HANDLER ─────────────
 
 @app.on_message(filters.regex(r"instagram\.com"))
-async def instagram_handler(_, message: Message):
+async def instagram_handler(bot, message: Message):
     if not message.from_user or not message.text:
         return
 
@@ -131,7 +131,7 @@ async def instagram_handler(_, message: Message):
 
     # Log
     try:
-        await app.send_message(
+        await bot.send_message(
             LOG_CHANNEL,
             f"📥 Instagram Download\n👤 {message.from_user.mention}\n🔗 {link}",
         )
