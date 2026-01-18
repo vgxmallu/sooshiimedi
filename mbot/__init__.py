@@ -27,7 +27,6 @@ from dotenv import load_dotenv
 from pyrogram import Client
 import os
 import time
-from telethon import TelegramClient, events, functions, types
 
 
 formatter = logging.Formatter('%(levelname)s %(asctime)s - %(name)s - %(message)s')
@@ -46,10 +45,6 @@ logger.setLevel(logging.DEBUG)
 logger.addHandler(fh)
 logger.addHandler(ch)
 
-telethon_logger = logging.getLogger("telethon")
-telethon_logger.setLevel(logging.WARNING)
-telethon_logger.addHandler(ch)
-telethon_logger.addHandler(fh)
 
 botStartTime = time.time()
 load_dotenv()
@@ -92,8 +87,7 @@ if LOG_GROUP:
 #    api_id=os.environ.get('API_ID'),
 #    api_hash=os.environ['API_HASH'],
 #)
-bot = TelegramClient(__name__, API_ID, API_HASH, base_logger=telethon_logger).start(bot_token=BOT_TOKEN)
-logger.info("TELETHON BOT STARTED BROO")
+
 
 class Mbot(Client):
     def __init__(self):
