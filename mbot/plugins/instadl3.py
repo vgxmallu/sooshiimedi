@@ -15,7 +15,7 @@ from pyrogram.types import Message, InputMediaPhoto, InputMediaVideo
 
 
 
-IG_API = "https://vkrdownloader.xyz/server/"
+IG_API = "https://vkrdownloader.org/server/"
 IG_API_KEY = "vkrdownloader"
 
 http = httpx.AsyncClient(timeout=120)
