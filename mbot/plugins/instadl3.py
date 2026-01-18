@@ -1,24 +1,24 @@
-
 from mbot import Mbot as app
 from config import LOG_CHANNEL
-
-
-#!/usr/bin/env python3
 import io
 import time
 import asyncio
 from typing import List
-
 import httpx
 from pyrogram import Client, filters
 from pyrogram.types import Message, InputMediaPhoto, InputMediaVideo
 
-
-
 IG_API = "https://vkrdownloader.org/server/"
 IG_API_KEY = "vkrdownloader"
 
-http = httpx.AsyncClient(timeout=120)
+# 1. ADDED HEADERS: This mimics a real browser to bypass the 403 Forbidden error.
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Referer": "https://vkrdownloader.org/"
+}
+
+# 2. Increased timeout slightly and added headers to the client
+http = httpx.AsyncClient(timeout=120, headers=HEADERS)
 
 # ───────────── RATE LIMIT ─────────────
 
@@ -36,25 +36,36 @@ def rate_limited(user_id: int) -> bool:
 
 async def fetch_instagram(url: str) -> dict | None:
     try:
+        # Added params and headers check
         r = await http.get(
             IG_API,
             params={"api_key": IG_API_KEY, "vkr": url},
         )
-        if r.status_code != 200:
+        
+        # LOGGING FOR DEBUGGING: Helps you see if it's still 403
+        if r.status_code == 403:
+            print("Error: 403 Forbidden. The server is blocking the request.")
             return None
+        elif r.status_code != 200:
+            print(f"Error: Status code {r.status_code}")
+            return None
+            
         return r.json()
-    except:
+    except Exception as e:
+        print(f"Fetch Error: {e}")
         return None
 
 # ───────────── DOWNLOAD ─────────────
 
 async def download_file(url: str) -> bytes | None:
     try:
+        # Re-using the headers for the download request too
         async with http.stream("GET", url) as r:
             if r.status_code != 200:
                 return None
             return await r.aread()
-    except:
+    except Exception as e:
+        print(f"Download Error: {e}")
         return None
 
 # ───────────── LINK EXTRACTOR ─────────────
@@ -62,7 +73,8 @@ async def download_file(url: str) -> bytes | None:
 def extract_link(text: str) -> str | None:
     for word in text.split():
         if "instagram.com" in word:
-            return word
+            # Clean the link to remove extra characters
+            return word.split("?")[0] if "?" in word else word
     return None
 
 # ───────────── HANDLER ─────────────
@@ -82,18 +94,22 @@ async def instagram_handler(bot, message: Message):
     status = await message.reply_text("🔍 Fetching Instagram media...")
 
     data = await fetch_instagram(link)
-    if not data or not data.get("data"):
-        return await status.edit("❌ Failed to fetch media.")
+    
+    # Check for specific failure reasons
+    if not data:
+        return await status.edit("❌ Server rejected the request (403). Try again later.")
+    
+    if not data.get("data"):
+        return await status.edit("❌ Media not found or private account.")
 
     downloads = data["data"].get("downloads", [])
     if not downloads:
-        return await status.edit("❌ No media found.")
+        return await status.edit("❌ No downloadable media found.")
 
     media_group = []
-
     await status.edit("📥 Downloading media...")
 
-    for item in downloads[:10]:  # Telegram max album = 10
+    for item in downloads[:10]:
         url = item.get("url")
         ext = item.get("ext", "").lower()
 
@@ -111,7 +127,7 @@ async def instagram_handler(bot, message: Message):
             media_group.append(InputMediaVideo(file, supports_streaming=True))
 
     if not media_group:
-        return await status.edit("❌ Media download failed.")
+        return await status.edit("❌ Could not process the media files.")
 
     await status.edit("📤 Uploading to Telegram...")
 
