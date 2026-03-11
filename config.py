@@ -23,3 +23,9 @@ BT_STRT_TM = time.time()
 #===============
 
 PICS = (environ.get('PICS', 'https://telegra.ph/file/1c90d99d2bc0400310ade.jpg')).split()
+
+DOWNLOAD_DIR = "downloads"
+    
+    # Ensure download directory exists
+if not os.path.exists(DOWNLOAD_DIR):
+    os.makedirs(DOWNLOAD_DIR)
