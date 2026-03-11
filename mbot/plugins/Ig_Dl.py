@@ -62,7 +62,7 @@ IG = """
 # Regex to catch Instagram URLs (p, reel, reels, tv)
 IG_REGEX = r"(https?://(?:www\.)?instagram\.com/(?:p|reel|reels|tv)/[^\s]+)"
 
-@Client.on_message(filters.regex(IG_REGEX) & filters.private)
+@Client.on_message(filters.regex(IG_REGEX))
 async def handle_instagram_link(client: Client, message: Message):
     url = message.matches[0].group(1)
     
