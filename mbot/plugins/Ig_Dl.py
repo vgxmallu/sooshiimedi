@@ -2,7 +2,7 @@
 
 import os
 import yt_dlp
-from config import DOWNLOAD_DIR
+from config import DOWNLOAD_DIR, LOG_CHANNEL
 
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -44,6 +44,21 @@ def download_ig_media(url: str):
         print(f"Download Error: {e}")
         return None
 
+IG = """
+🔵🟣🔵 **LOG ALERT** 🟣🔵🟣
+
+➖➖➖➖➖➖➖➖➖➖➖
+📛**Twitter link** : [click here]({})
+👤**Name** : {}
+👾**Username** : @{}
+💾**DC** : {}
+♐**ID** : `{}`
+🤖**BOT** : @SocialMediaX_dlbot
+➖➖➖➖➖➖➖➖➖➖
+
+#Instagram #ig
+"""
+
 # Regex to catch Instagram URLs (p, reel, reels, tv)
 IG_REGEX = r"(https?://(?:www\.)?instagram\.com/(?:p|reel|reels|tv)/[^\s]+)"
 
@@ -53,7 +68,8 @@ async def handle_instagram_link(client: Client, message: Message):
     
     # 1. Notify user that processing has started
     status_msg = await message.reply_text("⏳ **Downloading media...** Please wait.")
-    
+    gg = await client.send_message(LOG_CHANNEL, IG.format(url, message.from_user.mention, message.from_user.username, message.from_user.dc_id, message.from_user.id))
+
     # 2. Call the download utility
     filepath = download_ig_media(url)
     
