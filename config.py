@@ -29,3 +29,6 @@ DOWNLOAD_DIR = "downloads"
     # Ensure download directory exists
 if not os.path.exists(DOWNLOAD_DIR):
     os.makedirs(DOWNLOAD_DIR)
+
+
+COOKIES_FILE = os.getenv("COOKIES_FILE", "fcookies.txt")
