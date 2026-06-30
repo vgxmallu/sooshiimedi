@@ -48,7 +48,7 @@ IG = """
 🔵🟣🔵 **LOG ALERT** 🟣🔵🟣
 
 ➖➖➖➖➖➖➖➖➖➖➖
-📛**Twitter link** : [click here]({})
+📛**INSTAGRAM link** : [click here]({})
 👤**Name** : {}
 👾**Username** : @{}
 💾**DC** : {}
