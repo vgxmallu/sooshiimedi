@@ -1,0 +1,10 @@
+# Netscape HTTP Cookie File
+# 
+# INSTRUCTIONS:
+# 1. Install a browser extension like "Get cookies.txt LOCALLY" (Chrome/Firefox).
+# 2. Log in to Facebook in that browser.
+# 3. Use the extension to export your Facebook cookies.
+# 4. Paste the entire contents into this file, replacing these instructions.
+# 
+# WARNING: NEVER share your active cookies.txt file publicly!
+
