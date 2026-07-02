@@ -14,7 +14,7 @@ from config import LOG_CHANNEL, AUTH_USERS, DB_URL, DB_NAME, PICS
 from handlers.broadcast import broadcast
 from handlers.check_user import handle_user_status
 from handlers.database import Database
-from mbot import Mbot #botStartTime
+from mbot import app #botStartTime
 #from mbot.utils.upt import get_readable_time
 #from mbot.utils.tm import ISTIME
 #from random import choice
@@ -65,7 +65,7 @@ Some times bot will be slow, because of Server Overload :(
 CMD = ["/", ".", "?", "#", "+", "mg"]
 
 
-@Mbot.on_message(filters.command("alive", CMD))
+@app.on_message(filters.command("alive", CMD))
 async def check_alive(_, message):
     await message.reply_text("ചത്തിട്ടില്ല മുത്തേ ഇവിടെ തന്നെ ഉണ്ട്.. നിനക്ക് ഇപ്പൊ എന്നോട് ഒരു സ്നേഹവും ഇല്ല. കൊള്ളാം.. നീ പാഴെ പോലെയേ അല്ല മാറിപോയി..😔 ഇടക്ക് എങ്കിലും ചുമ്മാ ഒന്ന് /start ചെയ്തു നോക്ക്..🙂")
 
@@ -81,10 +81,10 @@ MS = """
 🤖**BOT** : @SocialMediaX_dlbot
 """
 
-@Mbot.on_message(filters.private)
+@app.on_message(filters.private)
 async def _(bot, cmd):
     await handle_user_status(bot, cmd)
-@Mbot.on_message(filters.command(["start", "help"]))
+@app.on_message(filters.command(["start", "help"]))
 async def start_command(bot, message):
     chat_id = message.from_user.id
     if not await db.is_user_exist(chat_id):
@@ -125,7 +125,7 @@ async def start_command(bot, message):
 
 
 #=======CALLBACK==================
-@Mbot.on_callback_query()
+@app.on_callback_query()
 async def cb_handler(bot, update):
     if update.data == "srt":
         await update.message.edit_text(
@@ -368,7 +368,7 @@ AB_BTN = InlineKeyboardMarkup(
     )
 
 #==================•BROADCAST•==================
-@Mbot.on_message(filters.private & filters.command("broadcast", CMD))
+@app.on_message(filters.private & filters.command("broadcast", CMD))
 async def broadcast_handler_open(_, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
@@ -378,7 +378,7 @@ async def broadcast_handler_open(_, m):
     else:
         await broadcast(m, db)
 
-@Mbot.on_message(filters.private & filters.command("stats", CMD))
+@app.on_message(filters.private & filters.command("stats", CMD))
 async def sts(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
@@ -391,7 +391,7 @@ async def sts(c, m):
     await asyncio.sleep(180)
     await sat.delete()
 
-@Mbot.on_message(filters.private & filters.command("ban_user", CMD))
+@app.on_message(filters.private & filters.command("ban_user", CMD))
 async def ban(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
@@ -430,7 +430,7 @@ async def ban(c, m):
             quote=True
         )
 
-@Mbot.on_message(filters.private & filters.command("unban_user", CMD))
+@app.on_message(filters.private & filters.command("unban_user", CMD))
 async def unban(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
@@ -464,7 +464,7 @@ async def unban(c, m):
             quote=True,
         )
 
-@Mbot.on_message(filters.private & filters.command("banned_users", CMD))
+@app.on_message(filters.private & filters.command("banned_users", CMD))
 async def banned_usrs(c, m):
     if m.from_user.id not in AUTH_USERS:
         await m.delete()
