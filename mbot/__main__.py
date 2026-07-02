@@ -1,6 +1,6 @@
 import logging
 from pyrogram import Client
-
+from vgx import app
 
 # Setup Logging
 
