@@ -1,0 +1,13 @@
+# Environments
+.env
+
+# Cookies and session data
+cookies.txt
+*.session
+*.session-journal
+
+# Python caches and downloads
+downloads/
+__pycache__/
+*.pyc
+
