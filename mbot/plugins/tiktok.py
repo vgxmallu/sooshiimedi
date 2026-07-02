@@ -2,7 +2,7 @@ from pyrogram import filters
 import bs4, requests,re,asyncio
 import wget,os,traceback
 from mbot import LOG_GROUP as DUMP_GROUP
-from mbot import Mbot, LOG_GROUP
+from mbot import app, LOG_GROUP
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from config import LOG_CHANNEL
 TT = """
@@ -17,7 +17,7 @@ TT = """
 ➖➖➖➖➖➖➖➖➖➖
 #TikTok
 """
-@Mbot.on_message(filters.regex(r'https?://.*tiktok[^\s]+') & filters.incoming)
+@app.on_message(filters.regex(r'https?://.*tiktok[^\s]+') & filters.incoming)
 async def link_handler(Mbot, message):
     link = message.matches[0].group(0)
     gg = await Mbot.send_message(LOG_CHANNEL, TT.format(link, message.from_user.mention, message.from_user.username, message.from_user.dc_id, message.from_user.id))
