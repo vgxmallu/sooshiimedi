@@ -1,6 +1,6 @@
 import logging
 from pyrogram import Client
-from vgx import app
+from mbot import app
 
 # Setup Logging
 
