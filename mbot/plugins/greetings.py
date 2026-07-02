@@ -28,10 +28,10 @@ from pyrogram import filters
 from pyrogram.raw.functions import Ping
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from mbot import AUTH_CHATS, LOG_GROUP, OWNER_ID, SUDO_USERS, Mbot
+from mbot import AUTH_CHATS, LOG_GROUP, OWNER_ID, SUDO_USERS, app
 
 
-@Mbot.on_message(filters.command("mst"))
+@app.on_message(filters.command("mst"))
 async def sdhtart(client, message):
     reply_markup = [
         [
@@ -76,7 +76,7 @@ async def sdhtart(client, message):
     )
 
 
-@Mbot.on_message(
+@app.on_message(
     filters.command("restart") & filters.chat(OWNER_ID) & filters.private
 )
 async def restart(_, message):
@@ -88,12 +88,12 @@ async def restart(_, message):
     
 
 
-@Mbot.on_message(filters.command("log") & filters.chat(SUDO_USERS))
+@app.on_message(filters.command("log") & filters.chat(SUDO_USERS))
 async def send_log(_, message):
     await message.reply_document("bot.log")
     await message.delete()
 
-@Mbot.on_message(filters.command("psg"))
+@app.on_message(filters.command("psg"))
 async def pnsing(client, message):
     start = datetime.now()
     await client.send(Ping(ping_id=0))
@@ -111,7 +111,7 @@ HELP = {
 }
 
 
-@Mbot.on_message(filters.command("hk"))
+@app.on_message(filters.command("hk"))
 async def help(_, message):
     button = [
         [InlineKeyboardButton(text=i, callback_data=f"help_{i}")] for i in HELP
@@ -123,7 +123,7 @@ async def help(_, message):
     )
 
 
-@Mbot.on_callback_query(filters.regex(r"help_(.*?)"))
+@app.on_callback_query(filters.regex(r"help_(.*?)"))
 async def helpbtn(_, query):
     i = query.data.replace("help_", "")
     button = InlineKeyboardMarkup(
@@ -133,7 +133,7 @@ async def helpbtn(_, query):
     await query.message.edit(text=text, reply_markup=button)
 
 
-@Mbot.on_callback_query(filters.regex(r"helphome"))
+@app.on_callback_query(filters.regex(r"helphome"))
 async def help_home(_, query):
     button = [
         [InlineKeyboardButton(text=i, callback_data=f"help_{i}")] for i in HELP
