@@ -1,13 +1,13 @@
 from pyrogram import Client
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
+#from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from config import BOT_TOKEN, API_HASH, API_ID
 import logging
-from pyrogram.types import BotCommand
+#from pyrogram.types import BotCommand
 
 # Setup Logging
 logging.basicConfig(level=logging.INFO)
 # Initialize Scheduler
-scheduler = AsyncIOScheduler()
+#scheduler = AsyncIOScheduler()
 
 
 
