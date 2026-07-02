@@ -1,6 +1,6 @@
 import logging
 from pyrogram import Client
-from mbot import app
+from mbot.__init__ import app
 
 # Setup Logging
 
