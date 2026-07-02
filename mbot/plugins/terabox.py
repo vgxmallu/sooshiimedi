@@ -11,7 +11,7 @@ import time
 
 from handlers.status import format_progress_bar
 from handlers.video import download_video, upload_video
-from mbot import Mbot as app
+from mbot import app
 
 
 dump_id = os.environ.get('CHAT_ID', '-1001939311530')
