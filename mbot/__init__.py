@@ -1,6 +1,6 @@
 from pyrogram import Client
 #from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from config import BOT_TOKEN, API_HASH, API_ID
+from config import Config
 import logging
 #from pyrogram.types import BotCommand
 
@@ -15,8 +15,8 @@ logging.basicConfig(level=logging.INFO)
 # Initialize Bot
 app = Client(
     "scheduler_bot_session",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN,
+    api_id=Config.API_ID,
+    api_hash=Config.API_HASH,
+    bot_token=Config.BOT_TOKEN,
     plugins=dict(root="mbot") # Automatically loads files in plugins/
 )
