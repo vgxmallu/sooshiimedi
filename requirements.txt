@@ -21,7 +21,7 @@ asyncio
 motor>=3.3.0
 
 aiofiles
-pymongo[srv]==3.12.3
+#pymongo[srv]==3.12.3
 #--------Pillow>=4.2.0
 ####Pillow>=4.2.0
 pillow==9.5.0
