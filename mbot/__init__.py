@@ -1,6 +1,6 @@
 from pyrogram import Client
 #from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from config import Config
+from vgx_config import Config
 import logging
 #from pyrogram.types import BotCommand
 
