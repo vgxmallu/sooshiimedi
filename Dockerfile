@@ -5,8 +5,9 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # 3. Install FFmpeg and clean up to keep the image small
+# Install Git (and ffmpeg if you still need it) so pip can clone repositories
 RUN apt-get update && \
-    apt-get install -y ffmpeg && \
+    apt-get install -y git ffmpeg && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
