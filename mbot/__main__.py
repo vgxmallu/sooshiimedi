@@ -1,7 +1,14 @@
 import logging
 from pyrogram import Client
 from mbot.__init__ import app
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from config import Config
 
+# Setup Logging
+logging.basicConfig(level=logging.INFO)
+
+# Initialize Scheduler
+scheduler = AsyncIOScheduler()
 # Setup Logging
 
 async def main():
