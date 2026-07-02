@@ -9,8 +9,8 @@ requests
 asgiref
 
 #------youtube------#
-git+https://github.com/yt-dlp/yt-dlp.git
-
+#git+https://github.com/yt-dlp/yt-dlp.git
+yt-dlp
 
 pykeyboard
 aiohttp==3.9.2 
