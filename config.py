@@ -5,18 +5,7 @@ from os import getenv
 from dotenv import load_dotenv
 from os import environ
 
-
-
-
-
-
-
-class Config:
-    API_ID = int(os.environ.get("API_ID", "12345")) # Get from my.telegram.org
-    API_HASH = os.environ.get("API_HASH", "YOUR_API_HASH")
-    BOT_TOKEN = os.environ.get("BOT_TOKEN", "YOUR_BOT_TOKEN")
     
-
 
 if os.path.exists("local.env"):
     load_dotenv("local.env")
