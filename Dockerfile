@@ -1,13 +1,21 @@
-FROM python:3.9-slim-buster
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends python3-pip git \
-    && rm -rf /var/lib/apt/lists/*
-RUN pip3 install --upgrade pip
-WORKDIR /music
-RUN chmod 777 /music
-RUN apt update && apt upgrade -y && apt install ffmpeg python3 python3-pip -y
-COPY requirements.txt .
-RUN pip3 install -r requirements.txt
-COPY . .
-CMD ["python3", "-m", "mbot"]
+# 1. Use the official lightweight Python image
+FROM python:3.11-slim
 
+# 2. Set the working directory inside the container
+WORKDIR /app
+
+# 3. Install FFmpeg and clean up to keep the image small
+RUN apt-get update && \
+    apt-get install -y ffmpeg && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# 4. Copy your requirements file and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 5. Copy the rest of your bot's code into the container
+COPY . .
+
+# 6. Run the bot
+CMD ["python", "mbot"]
