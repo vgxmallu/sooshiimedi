@@ -1,6 +1,6 @@
 from pyrogram import filters
 
-from mbot import Mbot
+from mbot import app
 import os,re,asyncio,bs4
 import requests,wget,traceback
 from bs4 import BeautifulSoup
@@ -18,7 +18,7 @@ TW = """
 ➖➖➖➖➖➖➖➖➖➖
 #Twitter
 """
-@Mbot.on_message(filters.regex(r'https?://.*twitter[^\s]+') & filters.incoming | filters.regex(r'https?://(?:www\.)?x\.com/\S+') & filters.incoming,group=-5)
+@app.on_message(filters.regex(r'https?://.*twitter[^\s]+') & filters.incoming | filters.regex(r'https?://(?:www\.)?x\.com/\S+') & filters.incoming,group=-5)
 async def twitter_handler(Mbot, message):
    try:            
       link=message.matches[0].group(0)
