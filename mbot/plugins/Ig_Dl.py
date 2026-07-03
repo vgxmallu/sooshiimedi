@@ -45,9 +45,9 @@ def download_ig_media(url: str):
         return None
 
 IG = """
-🔵🟣🔵 **LOG ALERT** 🟣🔵🟣
+🔵🟣 **INSTAGRAM LINK ALERT** 🟣🔵
 
-➖➖➖➖➖➖➖➖➖➖➖
+👊➖➖➖➖➖➖➖➖➖👊
 📛**INSTAGRAM link** : [click here]({})
 👤**Name** : {}
 👾**Username** : @{}
@@ -68,8 +68,21 @@ async def handle_instagram_link(client: Client, message: Message):
     
     # 1. Notify user that processing has started
     status_msg = await message.reply_text("⏳ **Downloading media...** Please wait.")
-    gg = await client.send_message(LOG_CHANNEL, IG.format(url, message.from_user.mention, message.from_user.username, message.from_user.dc_id, message.from_user.id))
+    #gg = await client.send_message(LOG_CHANNEL, IG.format(url, message.from_user.mention, message.from_user.username, message.from_user.dc_id, message.from_user.id))
+# Safely grab the user variables (Falls back to "Anonymous" if from_user is None)
+    user = message.from_user
+    mention = user.mention if user else "Anonymous"
+    username = f"@{user.username}" if user and user.username else "No Username"
+    dc_id = user.dc_id if user else "Unknown"
+    user_id = user.id if user else message.chat.id
 
+# Send the log message using the safe variables
+    gg = await client.send_message(
+        LOG_CHANNEL, 
+        IG.format(url, mention, username, dc_id, user_id)
+    )
+
+    
     # 2. Call the download utility
     filepath = download_ig_media(url)
     
