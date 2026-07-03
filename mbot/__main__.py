@@ -1,6 +1,6 @@
 import logging
 from pyrogram import Client
-from mbot.__init__ import app
+from mbot import app
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 
