@@ -5,9 +5,9 @@ from config import LOG_GROUP, LOG_CHANNEL, LOG_GROUP as DUMP_GROUP
 from mbot import app
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 TT = """
-⚫⚪ **LOG ALERT** ⚫⚪
+⚫⚪ **TIK TOK ALERT** ⚫⚪
 ➖➖➖➖➖➖➖➖➖➖➖
-📛**TikTok link** : [click here]({})
+📛**TIKTOK link** : [click here]({})
 👤**Name** : {}
 👾**Username** : @{}
 💾**DC** : {}
