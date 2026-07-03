@@ -7,6 +7,8 @@ from config import DOWNLOAD_DIR, LOG_CHANNEL
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 def download_ig_media(url: str):
     """
     Downloads Instagram media using yt-dlp.
@@ -82,7 +84,13 @@ async def handle_instagram_link(client: Client, message: Message):
         IG.format(url, mention, username, dc_id, user_id)
     )
 
-    
+    igbutton = InlineKeyboardMarkup(
+               [
+                   [
+                       InlineKeyboardButton('Open on INSTAGRAM', url=f'{url}')
+                   ]
+               ]
+          )
     # 2. Call the download utility
     filepath = download_ig_media(url)
     
@@ -93,7 +101,7 @@ async def handle_instagram_link(client: Client, message: Message):
         try:
             # Check if it's a video or a photo
             if filepath.endswith(('.mp4', '.webm', '.mkv')):
-                await message.reply_video(video=filepath, caption="Here is your video! 🎬")
+                await message.reply_video(video=filepath, caption="Here is your video! 🎬", reply_markup=igbutton)
             else:
                 await message.reply_photo(photo=filepath, caption="Here is your photo! 📸")
         except Exception as e:
