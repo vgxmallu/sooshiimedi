@@ -1,12 +1,11 @@
 from pyrogram import filters
 import bs4, requests,re,asyncio
 import wget,os,traceback
-from mbot import LOG_GROUP as DUMP_GROUP
-from mbot import app, LOG_GROUP
+from config import LOG_GROUP, LOG_CHANNEL, DUMP_GROUP
+from mbot import app
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from config import LOG_CHANNEL
 TT = """
-📤📱 **LOG ALERT** 💻📱
+⚫⚪ **LOG ALERT** ⚫⚪
 ➖➖➖➖➖➖➖➖➖➖➖
 📛**TikTok link** : [click here]({})
 👤**Name** : {}
