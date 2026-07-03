@@ -1,7 +1,7 @@
 from pyrogram import filters
 import bs4, requests,re,asyncio
 import wget,os,traceback
-from config import LOG_GROUP, LOG_CHANNEL, DUMP_GROUP
+from config import LOG_GROUP, LOG_CHANNEL, LOG_GROUP as DUMP_GROUP
 from mbot import app
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 TT = """
