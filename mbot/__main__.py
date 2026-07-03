@@ -1,32 +1,27 @@
-import asyncio
 import logging
 from pyrogram import idle
 from mbot import app, logger
 
-# 1. Suppress the harmless "signal wakeup fd" error from Python's async engine
+# Suppress the harmless "signal wakeup fd" error
 logging.getLogger("asyncio").setLevel(logging.CRITICAL)
 
 async def main():
     logger.info("Starting bot services...")
     
-    # 2. Start the Pyrogram client
-    await app.start()
+    # We do NOT need to call await app.start() here! 
+    # Pyrogram does it automatically before running this function.
     
     bot_info = await app.get_me()
     logger.info(f"✅ Bot is online: @{bot_info.username}")
     
-    try:
-        # 3. Keep the bot running
-        await idle()
-    except KeyboardInterrupt:
-        logger.warning("Bot stopped manually.")
-    finally:
-        # 4. Graceful shutdown to prevent session file corruption on Koyeb
-        logger.info("Cleaning up active tasks...")
-        if app.is_connected:
-            await app.stop()
-        logger.info("Shutdown complete.")
+    # Keep the bot running and listening for messages
+    await idle()
+    
+    logger.info("Shutdown signal received. Cleaning up active tasks...")
+    # We do NOT need to call await app.stop() here!
+    # Pyrogram will automatically stop the bot safely when this function ends.
 
 if __name__ == "__main__":
-    # 5. The standard, modern way to run an async Python app
-    asyncio.run(main())
+    # Let Pyrogram's built-in engine handle the event loop safely
+    app.run(main())
+
