@@ -1,10 +1,10 @@
 from pyrogram import filters
-from mbot import LOG_GROUP as DUMP_GROUP
-from mbot import Mbot, LOG_GROUP
+
+from mbot import Mbot
 import os,re,asyncio,bs4
 import requests,wget,traceback
 from bs4 import BeautifulSoup
-from config import LOG_CHANNEL
+from config import LOG_CHANNEL, LOG_GROUP as DUMP_GROUP, LOG_GROUP
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 TW = """
 📤📱 **LOG ALERT** 💻📱
