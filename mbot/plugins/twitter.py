@@ -7,9 +7,9 @@ from bs4 import BeautifulSoup
 from config import LOG_CHANNEL, LOG_GROUP as DUMP_GROUP, LOG_GROUP
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 TW = """
-📤📱 **LOG ALERT** 💻📱
+⚫⚫ **X ALERT** ⚫⚫
 ➖➖➖➖➖➖➖➖➖➖➖
-📛**Twitter link** : [click here]({})
+📛**Twitter [X] link** : [click here]({})
 👤**Name** : {}
 👾**Username** : @{}
 💾**DC** : {}
