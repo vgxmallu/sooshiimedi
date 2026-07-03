@@ -46,7 +46,7 @@ async def link_handler(Mbot, message):
                snd_msg=await message.reply(get_api['links'][0]['a'])
                await asyncio.sleep(1)
                try:
-                  dump_file = await message.reply_video(get_api['links'][0]['a'],caption="**Downloaded via @SocialMediaX_dlbot**", reply_markup=ttbutton)
+                  dump_file = await message.reply_video(get_api['links'][0]['a'],caption="**Your Video was Downloaded from Tik Tok!!**\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X", reply_markup=ttbutton)
                   await snd_msg.delete()
                except Exception:
                    pass
