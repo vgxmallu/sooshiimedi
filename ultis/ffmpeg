@@ -1,0 +1,20 @@
+import shutil
+import subprocess
+
+def check_ffmpeg():
+
+    if shutil.which("ffmpeg") is None:
+        print("❌ FFmpeg not installed")
+        return False
+
+    try:
+        version = subprocess.check_output(
+            ["ffmpeg", "-version"],
+            text=True
+        ).splitlines()[0]
+
+        print(version)
+        return True
+
+    except Exception:
+        return False
