@@ -1,27 +1,47 @@
-import logging
-from pyrogram import idle
-from mbot import app, logger
+import asyncio
 
-# Suppress the harmless "signal wakeup fd" error
-logging.getLogger("asyncio").setLevel(logging.CRITICAL)
+from pyrogram import idle
+
+from mbot import app
+from ultis.logger import logger
+from ultis.ffmpeg import check_ffmpeg
+from ultis.folders import create_folders
+
+
+async def startup():
+
+    logger.info("🚀 Starting Bot...")
+
+    create_folders()
+
+    check_ffmpeg()
+
+    await app.start()
+
+    me = await app.get_me()
+
+    logger.info(f"Logged in as @{me.username}")
+
+    logger.info("✅ Bot Started Successfully")
+
+
+async def shutdown():
+
+    logger.info("Stopping Bot...")
+
+    await app.stop()
+
+    logger.info("Bot Stopped")
+
 
 async def main():
-    logger.info("Starting bot services...")
-    
-    # We do NOT need to call await app.start() here! 
-    # Pyrogram does it automatically before running this function.
-    
-    bot_info = await app.get_me()
-    logger.info(f"✅ Bot is online: @{bot_info.username}")
-    
-    # Keep the bot running and listening for messages
+
+    await startup()
+
     await idle()
-    
-    logger.info("Shutdown signal received. Cleaning up active tasks...")
-    # We do NOT need to call await app.stop() here!
-    # Pyrogram will automatically stop the bot safely when this function ends.
+
+    await shutdown()
+
 
 if __name__ == "__main__":
-    # Let Pyrogram's built-in engine handle the event loop safely
-    app.run(main())
-
+    asyncio.run(main())
