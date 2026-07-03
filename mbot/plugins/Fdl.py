@@ -73,7 +73,7 @@ async def handle_facebook_links(client: Client, message: Message):
 # Send the log message using the safe variables
     gg = await client.send_message(
         LOG_CHANNEL, 
-        IG.format(url, mention, username, dc_id, user_id)
+        FB.format(url, mention, username, dc_id, user_id)
     )
     try:
         await status.edit_text("📥 **Downloading Facebook Video...**")
