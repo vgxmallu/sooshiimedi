@@ -1,22 +1,22 @@
-# 1. Use the official lightweight Python image
-FROM python:3.11-slim
 
-# 2. Set the working directory inside the container
-WORKDIR /app
+#Made-with-VGX-SHIT-THINGS
 
-# 3. Install FFmpeg and clean up to keep the image small
-# Install Git (and ffmpeg if you still need it) so pip can clone repositories
-RUN apt-get update && \
-    apt-get install -y git ffmpeg && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+FROM python:3.9-slim-buster
 
-# 4. Copy your requirements file and install Python dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends python3-pip git \
+    && rm -rf /var/lib/apt/lists/*
+    
+RUN pip3 install --upgrade pip
+
+WORKDIR /my_project_vgx
+
+RUN chmod 777 /my_project_vgx
+
+RUN apt update && apt upgrade -y && apt install ffmpeg python3 python3-pip -y
+
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install -r requirements.txt
 
-# 5. Copy the rest of your bot's code into the container
 COPY . .
-
-# 6. Run the bot
-CMD ["python", "-m", "mbot"]
+CMD ["python3", "-m", "mbot"]
