@@ -3,7 +3,7 @@ from mbot import app
 
 async def main():
     await app.start()
-    print("Bot is running!")
+    print("🟢🟢BOT IS RUNNING!🟢🟢")
     await idle()
     await app.stop()
 
