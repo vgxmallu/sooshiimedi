@@ -17,7 +17,7 @@ COMMAND_PREFIXES = list(getenv("COMMAND_PREFIXES", "/ ! .").split())
 SUDO_USERS = list(map(int, getenv("SUDO_USERS", "784589736").split()))
 
 LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL", "-1001784386455"))
-DUMP_GROUP = int(os.environ.get("DUMP_GROUP"))
+
 #CHANNEL_ID = int(os.environ.get("CHANNEL_ID", ""))
 AUTH_CHATS = environ.get("AUTH_CHATS").split()
 AUTH_CHATS = [int(_x) for _x in AUTH_CHATS]
