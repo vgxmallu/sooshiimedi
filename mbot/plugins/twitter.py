@@ -31,18 +31,18 @@ async def twitter_handler(Mbot, message):
       twbutton = InlineKeyboardMarkup(
                [
                    [
-                       InlineKeyboardButton('Open on Twitter', url=f'{link}')
+                       InlineKeyboardButton('Open on TWITTER', url=f'{link}')
                    ]
                ]
          )
       try:
-          dump_file = await message.reply_video(link, caption="**Downloaded via @SocialMediaX_dlbot**", reply_markup=twbutton)
+          dump_file = await message.reply_video(link, caption="**Your video Downloaded from X**\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X", reply_markup=twbutton)
       except Exception as e:
           print(e)
           try:
              snd_message=await message.reply(link)
              await asyncio.sleep(1)
-             dump_file = await message.reply_video(link, caption="**Downloaded via @SocialMediaX_dlbot**", reply_markup=twbutton)
+             dump_file = await message.reply_video(link, caption="**Your video Downloaded from X**\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X", reply_markup=twbutton)
              await snd_message.delete()
           except Exception as e:
               print(e)
@@ -54,13 +54,13 @@ async def twitter_handler(Mbot, message):
                   meta_tag = soup.find("meta", attrs={"property": "og:image"})
               content_value  = meta_tag['content']
               try:
-                  dump_file = await message.reply_video(content_value, caption="**Downloaded via @SocialMediaX_dlbot**", reply_markup=twbutton)
+                  dump_file = await message.reply_video(content_value, caption="**Your video Downloaded from X**\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X", reply_markup=twbutton)
               except Exception as e:
                   print(e)
                   try:
                      snd_msg=await message.reply(content_value)
                      await asyncio.sleep(1)
-                     await message.reply_video(content_value,caption="**Downloaded via @SocialMediaX_dlbot**", reply_markup=twbutton)
+                     await message.reply_video(content_value,caption="**Your video Downloaded from X**\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X", reply_markup=twbutton)
                      await snd_msg.delete()
                   except Exception as e:
                       print(e)
