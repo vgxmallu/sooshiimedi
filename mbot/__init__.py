@@ -32,7 +32,7 @@ app = Client(
     api_hash=str(Config.API_HASH),
     bot_token=str(Config.BOT_TOKEN),
     plugins=dict(root="mbot/plugins"),
-    workers=min(32, getattr(Config, "WORKERS", 16))  # Dynamic thread tuning for handling concurrency
+    workers=16 # Dynamic thread tuning for handling concurrency
 )
 
 __all__ = ["app", "logger", "START_TIME"]
