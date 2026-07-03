@@ -2,7 +2,7 @@ import logging
 import time
 from typing import List
 from pyrogram import Client
-from config import Config
+from vgx_config import Config
 
 # Track container boot timestamps for diagnostics
 START_TIME = time.time()
