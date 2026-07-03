@@ -1,17 +1,18 @@
 
 #Made-with-VGX-SHIT-THINGS
 
-FROM python:3.9-slim-buster
+#FROM python:3.9-slim-buster
+FROM python:3.11-slim-bookworm
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends python3-pip git \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git ffmpeg && \
+    rm -rf /var/lib/apt/lists/*
     
 RUN pip3 install --upgrade pip
 
-WORKDIR /my_project_vgx
+WORKDIR /sooshiimedi
 
-RUN chmod 777 /my_project_vgx
+RUN chmod 777 /sooshiimedi
 
 RUN apt update && apt upgrade -y && apt install ffmpeg python3 python3-pip -y
 
