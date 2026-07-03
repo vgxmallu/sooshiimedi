@@ -5,7 +5,7 @@ from config import COOKIES_FILE, DOWNLOAD_DIR, LOG_CHANNEL
 
 from pyrogram import Client, filters
 from pyrogram.types import Message 
-
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
 
@@ -55,7 +55,6 @@ FB = """
 #facebook #fb
 """
 
-
 # Regex specifically targeting Facebook, FB Watch, and Reels variants
 FB_REGEX = r"(https?://)?(www\.|m\.|watch\.|web\.)?(facebook\.com|fb\.watch|fb\.gg|fb\.com)/.+"
 
@@ -85,10 +84,18 @@ async def handle_facebook_links(client: Client, message: Message):
             return
             
         await status.edit_text("📤 **Uploading To Telegram...**")
-        
+
+        fbbutton = InlineKeyboardMarkup(
+               [
+                   [
+                       InlineKeyboardButton('Open On FACEBOOK', url=f'{url}')
+                   ]
+               ]
+         )
         await message.reply_video(
             video=file_path,
-            caption=f"🎬 **{title}**\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X"
+            caption=f"🎬 **{title}**\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X",
+            reply_markup=fbbutton
         )
         
         if os.path.exists(file_path):
