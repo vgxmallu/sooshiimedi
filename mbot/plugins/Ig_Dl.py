@@ -6,7 +6,7 @@ from config import DOWNLOAD_DIR, LOG_CHANNEL
 
 from pyrogram import Client, filters
 from pyrogram.types import Message
-
+from pyrogram.enums import ButtonStyle
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 def download_ig_media(url: str):
@@ -87,7 +87,7 @@ async def handle_instagram_link(client: Client, message: Message):
     igbutton = InlineKeyboardMarkup(
                [
                    [
-                       InlineKeyboardButton('Open on INSTAGRAM', url=f'{url}')
+                       InlineKeyboardButton('Open on INSTAGRAM', url=f'{url}', style=ButtonStyle.SUCCESS)
                    ]
                ]
           )
