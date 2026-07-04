@@ -88,7 +88,7 @@ async def handle_facebook_links(client: Client, message: Message):
         fbbutton = InlineKeyboardMarkup(
                [
                    [
-                       InlineKeyboardButton('Open On FACEBOOK', url=f'{url}')
+                       InlineKeyboardButton('⛓️‍💥Open On FACEBOOK', url=f'{url}')
                    ]
                ]
          )
