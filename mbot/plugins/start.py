@@ -34,7 +34,7 @@ db = Database(DB_URL, DB_NAME)
 
 SRT_TXT = """
 👋 Hey there {}!, My name is Social media x dlbot. 
-**Bot can download from:**
+**I can download from:**
 × [Facebook](https://www.facebook.com/)
 × [Instagram](https://www.instagram.com/)
 × [YouTube](https://www.youtube.com/)
@@ -48,13 +48,12 @@ SRT_BTN = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton('📣 My Channel', url='https://t.me/XBots_X'),
-                InlineKeyboardButton('🎶 My Music group', url='https://t.me/music_X_galaxy')
             ],[
-                InlineKeyboardButton("📚 Help", callback_data="hlp"),
-                InlineKeyboardButton("👾 About", callback_data="ab"),
-                InlineKeyboardButton('🎵 Music Bot', url='https://t.me/musicx_dlbot')
+                InlineKeyboardButton("🔥 Help Module", callback_data="hlp"),
+                InlineKeyboardButton("👾 About To kenow me.", callback_data="ab"),
+                InlineKeyboardButton('🎮 Game Bot', url='https://t.me/musicx_dlbot')
             ],[
-                InlineKeyboardButton("❌", callback_data="close"),
+                InlineKeyboardButton("🗑️ Clear", callback_data="close"),
             ]
         ]
    )
@@ -71,7 +70,7 @@ async def check_alive(_, message):
 
 
 MS = """
-📣 **LOG ALERT** 📣
+‼️ **STARTRD ALERT** ‼️
 
 📛**Triggered Command** : /start
 👤**Name** : {}
@@ -225,29 +224,35 @@ HLP_TXT = """
 Here is my Help Buttons 🔘📥
 
 ©️ @SocialMediaX_dlbot
+🔥: @XBOTS_X
 """
 HLP_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('Facebook', callback_data='fb'), 
-        InlineKeyboardButton("Instagram", callback_data="ig")
+        InlineKeyboardButton('🔵Facebook🔵', callback_data='fb')
         ],[
-        InlineKeyboardButton('Twitter', callback_data='tw'),
-        InlineKeyboardButton('TikTok', callback_data='tt')
+        InlineKeyboardButton("🟣Instagram🟣", callback_data="ig")
         ],[
-        InlineKeyboardButton("Pinterest", callback_data="pin"),
-        InlineKeyboardButton('YouTube', callback_data='yt')
+        InlineKeyboardButton('⚫Twitter⚫', callback_data='tw')
         ],[
-        InlineKeyboardButton('⬅️', callback_data='srt'), 
+        InlineKeyboardButton('⚫⚪TikTok⚫⚪', callback_data='tt')
+        ],[
+        InlineKeyboardButton("🔴⚪Pinterest⚪🔴", callback_data="pin")
+        ],[
+        InlineKeyboardButton('🔴YouTube🔴', callback_data='yt')
+        ],[
+        InlineKeyboardButton('⬅️Back', callback_data='srt'), 
         InlineKeyboardButton("ㅤㅤㅤㅤ", callback_data="emt"),
-        InlineKeyboardButton("❌", callback_data="close")
+        InlineKeyboardButton("🗑️Clear", callback_data="close")
         ]]
    )
 
 
 YT_TXT = """
-Help for **YouTube** Videos/Playlists downloads.
+Help for 🔴**YouTube**🔴 Videos downloads.
 
-Send **Youtube** video, playlist Link in Chat to Download videos.
+Send **Youtube** videO Link in Chat to Download videos.
+
+©️: @XBOTS_X
 """
 YT_BTN = InlineKeyboardMarkup(
         [[
@@ -257,13 +262,11 @@ YT_BTN = InlineKeyboardMarkup(
         ]]
    )
 FBDL_TXT = """
-Help for **Facebook** Videos/Reels downloads.
+Help for 🔵**Facebook**🔵 Videos/Reels downloads.
 
-Copy & Paste the Facebook direct Video/reels link here,
-or also use this way 👇🏼.
-Example: 
-`/fbdl` [fb link],
-`/fbdl https://www.facebook.com/reel/230127240109680?mibextid=9drbnH`
+Copy & Paste the Facebook direct Video/reels link here.
+
+©️: @XBOTS_X
 """
 FBDL_BTN = InlineKeyboardMarkup(
         [[
@@ -273,13 +276,14 @@ FBDL_BTN = InlineKeyboardMarkup(
         ]]
    )
 IGDL_TXT = """
-Help for **Instagram** Video/Reels/Photos downloads.
+Help for 🟣**Instagram**🟣 Video/Reels downloads.
 
 Copy & Paste your Instagram video/reels/photos link here,
-or also use this way👇🏼.
-Example: 
-`/igdl` [ig link]
-`/igdl https://www.instagram.com/reel/C1HzzaCu4yq/?igsh=MzRlODBiNWFlZA==`
+
+why can't download Storys and photo's can't send because of
+Photos/Stories: Are highly protected. Instagram requires a logged-in session (cookies) to generate the secure keys needed to view and download photo files.
+
+©️: @XBOTS_X
 """
 IGDL_BTN = InlineKeyboardMarkup(
         [[
@@ -291,13 +295,11 @@ IGDL_BTN = InlineKeyboardMarkup(
 
 
 TTDL_TXT = """
-Help for **TikTok** Reels downloads.
+Help for ⚪⚫**TikTok** Reels downloads.
 
 Copy & Paste your TikTok Reels links here,
-or also use this way👇🏼.
-Example:
-`/ttdl` [tiktok link]
-`/ttdl https://vm.tiktok.com/ZM6Mfb2Nf/`
+
+©️: @XBOTS_X
 """
 TTDL_BTN = InlineKeyboardMarkup(
         [[
@@ -308,13 +310,11 @@ TTDL_BTN = InlineKeyboardMarkup(
    )
 
 TWDL_TXT = """
-Help for **Twitter** Videos/gifs downloads.
+Help for ⚫**Twitter**⚫ Videos/gifs/photos downloads.
 
 Copy & Paste your Twitter videos links here,
-or also use this way 👇🏼.
-Example:
-`/twdl` [twitter link]
-`/twdl https://twitter.com/netflix/status/1738031651911848410?t=d-Q7ITz3yIKFNWe2bPELHg&s=19`
+
+©️: @XBOTS_X
 """
 TWDL_BTN = InlineKeyboardMarkup(
         [[
@@ -327,13 +327,9 @@ TWDL_BTN = InlineKeyboardMarkup(
 PINDL_TXT = """
 Help for **Pinterest** Videos/Photos Downloads.
 
-this module for Pinterest video and images download.
-Example:
-for video dl `/pvdl` [link]
-`/pvdl https://pin.it/5VbhhXC`
+we will add soon...
 
-for images dl `/pidl` [link]
-`/pidl https://pin.it/4QpaihW`
+©️: @XBOTS_X
 """
 PINDL_BTN = InlineKeyboardMarkup(
         [[
@@ -358,12 +354,13 @@ __About Me__
 
 📋 **License** : [MIT](https://choosealicense.com/licenses/mit/)
 
-    ©️ **@SocialMediaX_dlbot**
+©️ **@SocialMediaX_dlbot**
+🔥: @XBOTS_X
 """
 AB_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('⬅️', callback_data='srt'),
-        InlineKeyboardButton('❌', callback_data='close')
+        InlineKeyboardButton('⬅️ Back', callback_data='srt'),
+        InlineKeyboardButton('🗑️ Clear', callback_data='close')
         ]]
     )
 
