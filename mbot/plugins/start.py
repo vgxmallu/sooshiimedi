@@ -7,7 +7,7 @@ import pytz, datetime
 import time 
 
 from pyrogram import filters, StopPropagation
-from pyrogram.enums import ButtonStyle
+
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 #from pyrogram.errors import UserNotParticipant
 from config import LOG_CHANNEL, AUTH_USERS, DB_URL, DB_NAME, PICS
@@ -59,13 +59,13 @@ __💡 **Pro Tips:**
 SRT_BTN = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton('🔮 Channel', url='https://t.me/XBots_X', style=ButtonStyle.PRIMARY),
+                InlineKeyboardButton('🔮 Channel', url='https://t.me/XBots_X'),
             ],[
-                InlineKeyboardButton("🔥 Help Module", callback_data="hlp", style=ButtonStyle.PRIMARY),
-                InlineKeyboardButton("👾 About To kenow me.", callback_data="ab", style=ButtonStyle.PRIMARY),
-                InlineKeyboardButton('🎮 Game Bot', url='https://t.me/musicx_dlbot', style=ButtonStyle.PRIMARY)
+                InlineKeyboardButton("🔥 Help Module", callback_data="hlp"),
+                InlineKeyboardButton("👾 About To kenow me.", callback_data="ab"),
+                InlineKeyboardButton('🎮 Game Bot', url='https://t.me/musicx_dlbot')
             ],[
-                InlineKeyboardButton("🗑️ Clear", callback_data="close", style=ButtonStyle.DANGER),
+                InlineKeyboardButton("🗑️ Clear", callback_data="close"),
             ]
         ]
    )
@@ -240,21 +240,21 @@ Here is my Help Buttons 🔘📥
 """
 HLP_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('🔵Facebook🔵', callback_data='fb', style=ButtonStyle.SUCCESS)
+        InlineKeyboardButton('🔵Facebook🔵', callback_data='fb')
         ],[
-        InlineKeyboardButton("🟣Instagram🟣", callback_data="ig", style=ButtonStyle.SUCCESS)
+        InlineKeyboardButton("🟣Instagram🟣", callback_data="ig")
         ],[
-        InlineKeyboardButton('⚫Twitter⚫', callback_data='tw', style=ButtonStyle.SUCCESS)
+        InlineKeyboardButton('⚫Twitter⚫', callback_data='tw')
         ],[
-        InlineKeyboardButton('⚫⚪TikTok⚫⚪', callback_data='tt', style=ButtonStyle.SUCCESS)
+        InlineKeyboardButton('⚫⚪TikTok⚫⚪', callback_data='tt')
         ],[
-        InlineKeyboardButton("🔴⚪Pinterest⚪🔴", callback_data="pin", style=ButtonStyle.SUCCESS)
+        InlineKeyboardButton("🔴⚪Pinterest⚪🔴", callback_data="pin")
         ],[
-        InlineKeyboardButton('🔴YouTube🔴', callback_data='yt', style=ButtonStyle.SUCCESS)
+        InlineKeyboardButton('🔴YouTube🔴', callback_data='yt')
         ],[
-        InlineKeyboardButton('⬅️Back', callback_data='srt', style=ButtonStyle.PRIMARY)
+        InlineKeyboardButton('⬅️Back', callback_data='srt')
         ],[
-        InlineKeyboardButton("🗑️Clear", callback_data="close", style=ButtonStyle.DANGER)
+        InlineKeyboardButton("🗑️Clear", callback_data="close")
         ]]
    )
 
@@ -268,9 +268,9 @@ Send **Youtube** videO Link in Chat to Download videos.
 """
 YT_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton("⬅️", callback_data="hlp", style=ButtonStyle.PRIMARY), 
-        InlineKeyboardButton("❌", callback_data="close", style=ButtonStyle.DANGER),
-        InlineKeyboardButton("🏠", callback_data="srt", style=ButtonStyle.PRIMARY)
+        InlineKeyboardButton("⬅️", callback_data="hlp"), 
+        InlineKeyboardButton("❌", callback_data="close"),
+        InlineKeyboardButton("🏠", callback_data="srt")
         ]]
    )
 FBDL_TXT = """
@@ -282,9 +282,9 @@ Copy & Paste the Facebook direct Video/reels link here.
 """
 FBDL_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton("⬅️", callback_data="hlp", style=ButtonStyle.PRIMARY), 
-        InlineKeyboardButton("❌", callback_data="close", style=ButtonStyle.DANGER),
-        InlineKeyboardButton("🏠", callback_data="srt", style=ButtonStyle.PRIMARY)
+        InlineKeyboardButton("⬅️", callback_data="hlp"), 
+        InlineKeyboardButton("❌", callback_data="close"),
+        InlineKeyboardButton("🏠", callback_data="srt")
         ]]
    )
 IGDL_TXT = """
@@ -299,9 +299,9 @@ Photos/Stories: Are highly protected. Instagram requires a logged-in session (co
 """
 IGDL_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton("⬅️", callback_data="hlp", style=ButtonStyle.PRIMARY), 
-        InlineKeyboardButton("❌", callback_data="close", style=ButtonStyle.DANGER),
-        InlineKeyboardButton("🏠", callback_data="srt", style=ButtonStyle.PRIMARY)
+        InlineKeyboardButton("⬅️", callback_data="hlp"), 
+        InlineKeyboardButton("❌", callback_data="close"),
+        InlineKeyboardButton("🏠", callback_data="srt")
         ]]
    )
 
@@ -315,9 +315,9 @@ Copy & Paste your TikTok Reels links here,
 """
 TTDL_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton("⬅️", callback_data="hlp", style=ButtonStyle.PRIMARY), 
-        InlineKeyboardButton("❌", callback_data="close", style=ButtonStyle.DANGER),
-        InlineKeyboardButton("🏠", callback_data="srt", style=ButtonStyle.PRIMARY)
+        InlineKeyboardButton("⬅️", callback_data="hlp"), 
+        InlineKeyboardButton("❌", callback_data="close"),
+        InlineKeyboardButton("🏠", callback_data="srt")
         ]]
    )
 
@@ -330,9 +330,9 @@ Copy & Paste your Twitter videos links here,
 """
 TWDL_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton("⬅️", callback_data="hlp", style=ButtonStyle.PRIMARY), 
-        InlineKeyboardButton("❌", callback_data="close", style=ButtonStyle.DANGER),
-        InlineKeyboardButton("🏠", callback_data="srt", style=ButtonStyle.PRIMARY)
+        InlineKeyboardButton("⬅️", callback_data="hlp"), 
+        InlineKeyboardButton("❌", callback_data="close"),
+        InlineKeyboardButton("🏠", callback_data="srt")
         ]]
    )
 
@@ -345,9 +345,9 @@ we will add soon...
 """
 PINDL_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton("⬅️", callback_data="hlp", style=ButtonStyle.PRIMARY), 
-        InlineKeyboardButton("❌", callback_data="close", style=ButtonStyle.DANGER),
-        InlineKeyboardButton("🏠", callback_data="srt", style=ButtonStyle.PRIMARY)
+        InlineKeyboardButton("⬅️", callback_data="hlp"), 
+        InlineKeyboardButton("❌", callback_data="close"),
+        InlineKeyboardButton("🏠", callback_data="srt")
         ]]
     )
 
@@ -371,8 +371,8 @@ __About Me__
 """
 AB_BTN = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('⬅️ Back', callback_data='srt', style=ButtonStyle.PRIMARY),
-        InlineKeyboardButton('🗑️ Clear', callback_data='close', style=ButtonStyle.DANGER)
+        InlineKeyboardButton('⬅️ Back', callback_data='srt'),
+        InlineKeyboardButton('🗑️ Clear', callback_data='close')
         ]]
     )
 
