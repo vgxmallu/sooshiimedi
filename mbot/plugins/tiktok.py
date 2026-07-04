@@ -3,7 +3,6 @@ import bs4, requests,re,asyncio
 import wget,os,traceback
 from config import LOG_GROUP, LOG_CHANNEL, LOG_GROUP as DUMP_GROUP
 from mbot import app
-from pyrogram.enums import ButtonStyle
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 TT = """
 ⚫⚪ **TIK TOK ALERT** ⚫⚪
@@ -24,7 +23,7 @@ async def link_handler(Mbot, message):
     ttbutton = InlineKeyboardMarkup(
                      [
                          [
-                             InlineKeyboardButton('Open on TikTok', url=f'{link}', style=ButtonStyle.SUCCESS)
+                             InlineKeyboardButton('⛓️‍💥Open on TikTok', url=f'{link}')
                          ]
                      ]
                )
