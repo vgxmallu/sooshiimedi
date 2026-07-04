@@ -6,7 +6,7 @@ from config import COOKIES_FILE, DOWNLOAD_DIR, LOG_CHANNEL
 from pyrogram import Client, filters
 from pyrogram.types import Message 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from pyrogram.enums import ButtonStyle
+
 
 
 def _download_sync(url: str, download_dir: str):
@@ -88,7 +88,7 @@ async def handle_facebook_links(client: Client, message: Message):
         fbbutton = InlineKeyboardMarkup(
                [
                    [
-                       InlineKeyboardButton('Open On FACEBOOK', url=f'{url}', style=ButtonStyle.SUCCESS)
+                       InlineKeyboardButton('Open On FACEBOOK', url=f'{url}')
                    ]
                ]
          )
