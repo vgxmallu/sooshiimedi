@@ -31,7 +31,7 @@ async def twitter_handler(Mbot, message):
       twbutton = InlineKeyboardMarkup(
                [
                    [
-                       InlineKeyboardButton('Open on TWITTER', url=f'{link}')
+                       InlineKeyboardButton('Open on TWITTER', url=f'{link}', style=ButtonStyle.SUCCESS)
                    ]
                ]
          )
