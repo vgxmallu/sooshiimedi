@@ -62,8 +62,8 @@ SRT_BTN = InlineKeyboardMarkup(
                 InlineKeyboardButton('🔮 Channel', url='https://t.me/XBots_X'),
             ],[
                 InlineKeyboardButton("🔥 Help Module", callback_data="hlp"),
-                InlineKeyboardButton("👾 About To kenow me.", callback_data="ab"),
-                InlineKeyboardButton('🎮 Game Bot', url='https://t.me/musicx_dlbot')
+                InlineKeyboardButton("👾 About me.", callback_data="ab"),
+                InlineKeyboardButton('🎮 Game Bot', url='https://t.me/GomezGamesbot')
             ],[
                 InlineKeyboardButton("🗑️ Clear", callback_data="close"),
             ]
