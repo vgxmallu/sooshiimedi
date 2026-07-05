@@ -100,7 +100,7 @@ async def handle_instagram_link(client: Client, message: Message):
         try:
             # Check if it's a video or a photo
             if filepath.endswith(('.mp4', '.webm', '.mkv')):
-                await message.reply_video(video=filepath, caption="Here is your video! 🎬\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X", reply_markup=igbutton)
+                await message.reply_video(video=filepath, caption="Here is your 🟣Instagram 🟣 video!\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X", reply_markup=igbutton)
             else:
                 await message.reply_photo(photo=filepath, caption="Here is your photo! 📸")
         except Exception as e:
