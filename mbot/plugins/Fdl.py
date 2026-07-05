@@ -94,7 +94,7 @@ async def handle_facebook_links(client: Client, message: Message):
          )
         await message.reply_video(
             video=file_path,
-            caption=f"🎬 **{title}**\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X",
+            caption=f"**Here Is your 🔵Facebook🔵 video.**\n🎬 __{title}__\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X",
             reply_markup=fbbutton
         )
         
