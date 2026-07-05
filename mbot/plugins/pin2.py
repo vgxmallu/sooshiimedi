@@ -3,19 +3,19 @@ import os
 import shutil
 import time
 from pyrogram import Client, filters
-from pyrogram.types import Message # Fix: Imported Message type
+from pyrogram.types import Message 
 
 # Ensure this path points to where your cookies.txt is stored
 TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
 
-@Client.on_message(filters.command("pidl") & filters.private) # Added & filters.private for consistency
+@Client.on_message(filters.command("pidl") & filters.private)
 async def pinterest_dl_with_cookies(client: Client, message: Message):
     if len(message.command) < 2:
         return await message.reply_text("⚠️ **Usage:** `/pidl [Pinterest Link]`")
         
     url = message.command[1]
     user = message.from_user
-    # Create the base directory if it doesn't exist
+    
     if not os.path.exists(TMP_DOWNLOAD_DIRECTORY):
         os.makedirs(TMP_DOWNLOAD_DIRECTORY)
 
@@ -24,15 +24,14 @@ async def pinterest_dl_with_cookies(client: Client, message: Message):
     
     status = await message.reply_text("🔄 **Downloading using cookie auth...**")
     
-        try:
+    try:
         # Force yt-dlp to download only the image (thumbnail) and skip video processing
-        # This prevents the "No video formats found" error entirely
         cmd = [
             "yt-dlp", 
             "--cookies", "pincookies.txt", 
             "-o", f"{task_dir}/media.%(ext)s", 
-            "--write-thumbnail",  # Force download of the preview image
-            "--skip-download",    # Skip actual video stream downloading
+            "--write-thumbnail", 
+            "--skip-download",    
             url
         ]
         
@@ -61,4 +60,8 @@ async def pinterest_dl_with_cookies(client: Client, message: Message):
 
     except Exception as e:
         await status.edit_text(f"❌ **Error:** `{str(e)}`")
-
+        
+    finally:
+        # Clean up the folder to prevent storage bloat
+        if os.path.exists(task_dir):
+            shutil.rmtree(task_dir)
