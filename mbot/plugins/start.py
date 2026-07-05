@@ -337,9 +337,9 @@ TWDL_BTN = InlineKeyboardMarkup(
    )
 
 PINDL_TXT = """
-Help for **Pinterest** Videos/Photos Downloads.
+Help for **Pinterest** Videos/Photos Downloads..
 
-we will add soon...
+Copy & Paste your Pinterest videos links here, i will download for you.
 
 ©️: @XBOTS_X
 """
