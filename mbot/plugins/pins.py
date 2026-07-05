@@ -9,11 +9,8 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
+from config import LOG_CHANNEL
 
-# Import your configs
-from config import Config
-
-LOG_CHANNEL = getattr(Config, "LOG_CHANNEL", -1000000000000) 
 TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
 
 logging.basicConfig(
