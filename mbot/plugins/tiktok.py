@@ -28,7 +28,7 @@ async def link_handler(Mbot, message):
                      ]
                )
     try:
-        m = await message.reply_text("__Your Request is Processing.\nPlease Wait.__")
+        m = await message.reply_text("🔥Your Request is Processing...")
         get_api= requests.post("https://lovetik.com/api/ajax/search",data={"query":link}).json()
         if get_api['status'] and "Invalid TikTok video url" in get_api['mess']: 
            return await message.reply("Oops Invalid TikTok video url. Please try again :) ")
@@ -39,7 +39,7 @@ async def link_handler(Mbot, message):
                      await message.reply_photo(get_api['cover'])
                  except:
                      pass 
-              dump_file = await message.reply_video(get_api['links'][0]['a'], caption="**Downloaded via @SocialMediaX_dlbot**", reply_markup=ttbutton)
+              dump_file = await message.reply_video(get_api['links'][0]['a'], caption="Here is your ⚫⚪TikTok⚪⚫ Video.\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X", reply_markup=ttbutton)
            except KeyError:
                return await message.reply("Invalid TikTok video url. Please try again.")
            except Exception:
