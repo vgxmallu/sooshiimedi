@@ -7,9 +7,8 @@ from bs4 import BeautifulSoup
 from config import LOG_CHANNEL, LOG_GROUP as DUMP_GROUP, LOG_GROUP
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 TW = """
-⚫⚫ **X ALERT** ⚫⚫
+⚫⚫ **TWITER OR X ALERT** ⚫⚫
 ➖➖➖➖➖➖➖➖➖➖➖
-📛**Twitter [X] link** : [click here]({})
 👤**Name** : {}
 👾**Username** : @{}
 💾**DC** : {}
@@ -27,7 +26,7 @@ async def twitter_handler(Mbot, message):
       elif "twitter.com" in link:
          link = link.replace("twitter.com","fxtwitter.com")
       m = await message.reply_text("__Your Request is Processing.\nPlease Wait.__")
-      gg = await Mbot.send_message(LOG_CHANNEL, TW.format(link, message.from_user.mention, message.from_user.username, message.from_user.dc_id, message.from_user.id))
+      gg = await Mbot.send_message(LOG_CHANNEL, TW.format(message.from_user.mention, message.from_user.username, message.from_user.dc_id, message.from_user.id))
       twbutton = InlineKeyboardMarkup(
                [
                    [
