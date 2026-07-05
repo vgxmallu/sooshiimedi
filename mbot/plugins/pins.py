@@ -185,7 +185,7 @@ async def auto_pinterest_download(client: Client, message: Message):
         
         # 3. IF IT IS A VIDEO:
         if video_file:
-            await status.edit_text("📤 **Uploading Video...**")
+            await status.edit_text("📤 **Uploading to telegram...**")
             duration = 0
             width, height = 0, 0
             thumb = None
@@ -235,7 +235,7 @@ async def auto_pinterest_download(client: Client, message: Message):
                 await client.send_photo(
                     chat_id=message.chat.id,
                     photo=image_file,
-                    caption="**Downloaded via @SocialMediaX_dlbot**",
+                    caption="**Here is your 🔴⚪Pinterest⚪🔴 video! 🎬\n\n©️ @SocialMediaX_dlbot\n🔥🤖 @XBOTS_X",
                     reply_to_message_id=message.id,
                     reply_markup=markup,
                     progress=progress,
