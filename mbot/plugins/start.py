@@ -128,7 +128,7 @@ async def start_command(bot, message):
     #ab = await message.reply_text(ms_stt)
     a = await message.reply_sticker("CAACAgIAAxkBAAIpG2pKkyIMGTEJAv6fKQHwCqADv3fSAALkMQACvGCRSBqjblevJNQpHgQ")
     await asyncio.sleep(60)
-    await ab.delete()
+    #await ab.delete()
     await asyncio.sleep(3600)
     await message.reply_text("/start me later...")
     
