@@ -89,6 +89,64 @@ async def take_screen_shot(video_file, output_directory, ttl):
 # SMART DIRECT LINK HANDLER
 # ==========================================
 
+
+@Client.on_message(filters.command("pidl2"))
+async def pinimg(client: Client, message: Message):
+    if not os.path.isdir(TMP_DOWNLOAD_DIRECTORY):
+        os.makedirs(TMP_DOWNLOAD_DIRECTORY)
+
+    if len(message.command) < 2:
+        return await message.reply_text("Use command `/pidl [link]` to download Pinterest Images.")
+        
+    url = message.command[1]
+    user = message.from_user
+
+    # Send Log
+    mm = f"Bot: @SocialMediaX_dlbot\n👤**User** : [{user.first_name}](tg://user?id={user.id})\n👻**User Name** : @{user.username}\n🪧**Message** : {message.text}\n\n#Pinterest #ImageDl"
+    try:
+        await client.send_message(LOG_CHANNEL, mm)
+    except Exception:
+        pass
+
+    markup = InlineKeyboardMarkup([[InlineKeyboardButton("Open on Pinterest", url=url)]])
+    status = await message.reply_text("__Your Request is Processing.\nPlease Wait...__")
+
+    try:
+        pin_dl = importlib.import_module("pin2")
+        
+        # Wrapped in to_thread so the custom module doesn't block the async loop
+        await asyncio.to_thread(
+            pin_dl.run_library_main,
+            url, TMP_DOWNLOAD_DIRECTORY, 0, -1, False, False, False, False, False, True, False, False, None, None, None
+        )
+        
+        j = None
+        for file in os.listdir(TMP_DOWNLOAD_DIRECTORY):
+            if file.endswith(".log"):
+                os.remove(f"{TMP_DOWNLOAD_DIRECTORY}/{file}")
+                continue
+            if file.endswith(".jpg") and file != "thumb_image.jpg":
+                j = f"{TMP_DOWNLOAD_DIRECTORY}/{file}"
+
+        if j and os.path.exists(j):
+            c_time = time.time()
+            await client.send_photo(
+                chat_id=message.chat.id,
+                photo=j,
+                caption="**Downloaded via @SocialMediaX_dlbot**",
+                reply_to_message_id=message.id,
+                reply_markup=markup,
+                progress=progress,
+                progress_args=(status, c_time, "Uploading Image...")
+            )
+            await status.delete()
+            os.remove(j)
+        else:
+            await status.edit_text("❌ Could not extract image from the provided link.")
+
+    except Exception as e:
+        await status.edit_text(f"❌ Failed to process image: `{e}`")
+
 # Regex catches pin.it and pinterest.com links automatically
 PINTEREST_REGEX = r"(https?://(?:www\.)?(?:pinterest\.[a-zA-Z0-9]+|pin\.it)[^\s]+)"
 
