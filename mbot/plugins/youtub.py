@@ -80,7 +80,7 @@ YT_REGEX = r"(https?://)?(www\.)?(youtube\.com|youtu\.?be)/.+"
 @Client.on_message(filters.regex(YT_REGEX))
 async def yt_link_handler(client: Client, message: Message):
     url = message.text
-    status_msg = await message.reply_text("🔍 Fetching video details...", quote=True)
+    status_msg = await message.reply_text("🔍 Fetching video...", quote=True)
     
     opts = {'cookiefile': 'cookies.txt', 'quiet': True}
     
@@ -90,7 +90,7 @@ async def yt_link_handler(client: Client, message: Message):
         meta = await loop.run_in_executor(None, lambda: extract_meta_sync(url, opts))
         
         title = meta.get("title", "Video")
-        thumbnail = meta.get("thumbnail")
+        #thumbnail = meta.get("thumbnail")
         
         keyboard = InlineKeyboardMarkup(
             [
@@ -105,8 +105,7 @@ async def yt_link_handler(client: Client, message: Message):
         
         # If a thumbnail is available, send it as a photo UI
         if thumbnail:
-            await message.reply_photo(
-                photo=thumbnail,
+            await message.reply_text(
                 caption=caption,
                 reply_markup=keyboard,
                 quote=True
