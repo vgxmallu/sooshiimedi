@@ -24,12 +24,15 @@ async def pinterest_dl_with_cookies(client: Client, message: Message):
     
     status = await message.reply_text("🔄 **Downloading using cookie auth...**")
     
-    try:
-        # Note: Ensure 'pincookies.txt' exists in your bot's root directory
+        try:
+        # Force yt-dlp to download only the image (thumbnail) and skip video processing
+        # This prevents the "No video formats found" error entirely
         cmd = [
             "yt-dlp", 
             "--cookies", "pincookies.txt", 
             "-o", f"{task_dir}/media.%(ext)s", 
+            "--write-thumbnail",  # Force download of the preview image
+            "--skip-download",    # Skip actual video stream downloading
             url
         ]
         
@@ -38,21 +41,17 @@ async def pinterest_dl_with_cookies(client: Client, message: Message):
             stdout=asyncio.subprocess.PIPE, 
             stderr=asyncio.subprocess.PIPE
         )
-        stdout, stderr = await process.communicate()
+        await process.communicate()
         
-        # Check if the process failed
-        if process.returncode != 0:
-            error_msg = stderr.decode().splitlines()[-1] if stderr else "Unknown error"
-            raise Exception(error_msg)
+        # Search specifically for image files
+        image_files = [f for f in os.listdir(task_dir) if f.endswith(('.jpg', '.jpeg', '.png', '.webp'))]
         
-        # Logic to find and send the file
-        files = os.listdir(task_dir)
-        if not files:
-            raise Exception("No media downloaded. Check if cookies are valid or link is correct.")
+        if not image_files:
+            raise Exception("Could not extract an image from this pin.")
             
-        media_path = os.path.join(task_dir, files[0])
+        media_path = os.path.join(task_dir, image_files[0])
         
-        # Send as Photo
+        # Always send as a photo
         await client.send_photo(
             chat_id=message.chat.id, 
             photo=media_path, 
@@ -62,7 +61,4 @@ async def pinterest_dl_with_cookies(client: Client, message: Message):
 
     except Exception as e:
         await status.edit_text(f"❌ **Error:** `{str(e)}`")
-    finally:
-        # Cleanup
-        if os.path.exists(task_dir):
-            shutil.rmtree(task_dir)
+
