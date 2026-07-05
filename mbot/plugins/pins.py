@@ -108,8 +108,8 @@ async def pinimg(client: Client, message: Message):
     except Exception:
         pass
 
-    markup = InlineKeyboardMarkup([[InlineKeyboardButton("Open on Pinterest", url=url)]])
-    status = await message.reply_text("__Your Request is Processing.\nPlease Wait...__")
+    markup = InlineKeyboardMarkup([[InlineKeyboardButton("⛓️‍💥 Open on Pinterest", url=url)]])
+    status = await message.reply_text("Your Request is Processing...")
 
     try:
         pin_dl = importlib.import_module("pin2")
