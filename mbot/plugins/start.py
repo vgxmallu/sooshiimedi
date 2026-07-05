@@ -125,12 +125,12 @@ async def start_command(bot, message):
         reply_markup=SRT_BTN,
     )
     await message.delete()
-    ab = await message.reply_text(ms_stt)
-    a = await message.reply_sticker("CAACAgQAAxkBAAECc_Rlr_DBTtAoTZswcpeTEUozhUBwWAACugsAAtM56FC9TQABc2BqXEEeBA")
+    #ab = await message.reply_text(ms_stt)
+    a = await message.reply_sticker("CAACAgIAAxkBAAIpG2pKkyIMGTEJAv6fKQHwCqADv3fSAALkMQACvGCRSBqjblevJNQpHgQ")
     await asyncio.sleep(60)
     await ab.delete()
     await asyncio.sleep(3600)
-    await message.reply_text("/start me later 😌🫰🏼.")
+    await message.reply_text("/start me later...")
     
     
 
