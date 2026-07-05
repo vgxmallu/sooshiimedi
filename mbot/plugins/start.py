@@ -357,7 +357,7 @@ __About Me__
 🤖 **Name** : [SocialMedia•𝕏•Dlbot](https://t.me/SocialMediaX_dlbot)
 
 📝 **Language** : [Python3](https://python.org)
- × **Python version** : `3.10.11l`
+ × **Python version** : `3.10.13`
  
 📚 **Library** : [Pyrogram](https://pyrogram.org)
  × **Pyrogram version** : `2.0.73`
