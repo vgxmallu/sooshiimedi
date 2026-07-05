@@ -9,7 +9,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 # Set your download directory
 TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
 
-@Client.on_message(filters.command("pidl") & filters.private)
+@Client.on_message(filters.command("pidl"))
 async def pinterest_image_dl(client: Client, message: Message):
     if len(message.command) < 2:
         return await message.reply_text("⚠️ **Usage:** `/pidl [Pinterest Link]`")
@@ -26,7 +26,7 @@ async def pinterest_image_dl(client: Client, message: Message):
     
     try:
         # 2. Run your custom 'pin' library in a background thread
-        pin_dl = importlib.import_module("pin")
+        pin_dl = importlib.import_module("pin2")
         await asyncio.to_thread(
             pin_dl.run_library_main,
             url, task_dir, 0, -1, False, False, False, False, False, True, False, False, None, None, None
