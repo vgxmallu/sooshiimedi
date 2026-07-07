@@ -2,7 +2,7 @@
 
 import os
 import yt_dlp
-from config import DOWNLOAD_DIR, LOG_CHANNEL
+from config import DOWNLOAD_DIR, LOG2_CHANNEL
 
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -79,7 +79,7 @@ async def handle_instagram_link(client: Client, message: Message):
 
 # Send the log message using the safe variables
     gg = await client.send_message(
-        LOG_CHANNEL, 
+        LOG2_CHANNEL, 
         IG.format(url, mention, username, dc_id, user_id)
     )
 
