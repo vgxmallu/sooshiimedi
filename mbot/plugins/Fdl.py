@@ -1,7 +1,7 @@
 import asyncio
 import os
 import yt_dlp
-from config import COOKIES_FILE, DOWNLOAD_DIR, LOG2_CHANNEL
+from config import COOKIES_FILE, DOWNLOAD_DIR, LOGG_CHANNEL
 
 from pyrogram import Client, filters
 from pyrogram.types import Message 
@@ -72,7 +72,7 @@ async def handle_facebook_links(client: Client, message: Message):
 
 # Send the log message using the safe variables
     gg = await client.send_message(
-        LOG2_CHANNEL, 
+        LOGG_CHANNEL, 
         FB.format(url, mention, username, dc_id, user_id)
     )
     try:
