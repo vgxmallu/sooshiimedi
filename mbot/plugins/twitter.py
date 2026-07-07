@@ -4,7 +4,7 @@ from mbot import app
 import os,re,asyncio,bs4
 import requests,wget,traceback
 from bs4 import BeautifulSoup
-from config import LOG2_CHANNEL, LOG_GROUP as DUMP_GROUP, LOG_GROUP
+from config import LOGG_CHANNEL, LOG_GROUP as DUMP_GROUP, LOG_GROUP
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 TW = """
 ⚫⚫ **TWITER OR X ALERT** ⚫⚫
@@ -26,7 +26,7 @@ async def twitter_handler(Mbot, message):
       elif "twitter.com" in link:
          link = link.replace("twitter.com","fxtwitter.com")
       m = await message.reply_text("__Your Request is Processing.\nPlease Wait.__")
-      gg = await Mbot.send_message(LOG2_CHANNEL, TW.format(message.from_user.mention, message.from_user.username, message.from_user.dc_id, message.from_user.id))
+      gg = await Mbot.send_message(LOGG_CHANNEL, TW.format(message.from_user.mention, message.from_user.username, message.from_user.dc_id, message.from_user.id))
       twbutton = InlineKeyboardMarkup(
                [
                    [
