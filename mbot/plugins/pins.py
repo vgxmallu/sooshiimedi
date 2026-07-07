@@ -9,7 +9,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
-from config import LOG2_CHANNEL
+from config import LOGG_CHANNEL
 
 TMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY", "./DOWNLOADS/")
 
@@ -104,7 +104,7 @@ async def pinimg(client: Client, message: Message):
     # Send Log
     mm = f"Bot: @SocialMediaX_dlbot\n👤**User** : [{user.first_name}](tg://user?id={user.id})\n👻**User Name** : @{user.username}\n🪧**Message** : {message.text}\n\n#Pinterest #ImageDl"
     try:
-        await client.send_message(LOG2_CHANNEL, mm)
+        await client.send_message(LOGG_CHANNEL, mm)
     except Exception:
         pass
 
